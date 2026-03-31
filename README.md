@@ -3,6 +3,76 @@
 一個讓 **Claude Code / GitHub Copilot** 直接控制 iOS Simulator 的 Shell Script 工具集。
 優化 Flutter iOS App 的開發、測試、部署流程。
 
+---
+
+## 快速開始：讓 AI 使用這個 Skill
+
+### 步驟 1：Clone 到本機固定位置
+
+```bash
+git clone https://github.com/gabriel0952/ios-simulator-skill.git ~/ios-simulator-skill
+```
+
+> 之後所有專案共用這份 scripts，不需要重複 clone。
+
+### 步驟 2：安裝依賴
+
+```bash
+brew install idb-companion && pip install fb-idb
+```
+
+### 步驟 3：將 SKILL.md 加入 AI 的 context
+
+這個 repo 附有 `SKILL.md`，它就是給 AI 讀的「使用說明書」。
+把它加進 AI 的 context，AI 就會知道有哪些 scripts 可以用、何時該用哪個。
+
+#### Claude Code
+
+在你的 Flutter **專案根目錄**建立 `.claude/instructions.md`，加入一行：
+
+```markdown
+@~/ios-simulator-skill/SKILL.md
+```
+
+或在對話中直接貼入：
+
+```
+請讀這份說明並依照它操作 iOS Simulator：~/ios-simulator-skill/SKILL.md
+```
+
+#### GitHub Copilot (VS Code)
+
+在你的 Flutter **專案根目錄**建立 `.github/copilot-instructions.md`，加入：
+
+```markdown
+You have access to an iOS Simulator skill. Read and follow the instructions in:
+~/ios-simulator-skill/SKILL.md
+```
+
+或在 Copilot Chat 中直接用 `#file` 引用：
+
+```
+#file:~/ios-simulator-skill/SKILL.md 請幫我截圖目前 simulator 的畫面
+```
+
+### 步驟 4：直接用自然語言下指令
+
+設定好之後，你只需要用自然語言告訴 AI 你想做什麼，不需要自己記 script 指令：
+
+```
+幫我啟動 iPhone 16 Pro simulator，build 並安裝 /path/to/my_app，然後截圖給我看
+```
+
+```
+點擊畫面上的「登入」按鈕，輸入 test@example.com，截圖確認結果
+```
+
+```
+跑一次 flutter test，列出所有失敗的 test case
+```
+
+---
+
 ## 核心原則：優先用 screen_map，而非截圖
 
 | 方式 | Token 消耗 | 使用時機 |
